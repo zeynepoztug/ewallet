@@ -1,4 +1,9 @@
 Single repository holding a sample wallet application with spring security authentication, spring boot and react library.
+Scenario: 
+- Users and roles are created via DatabaseLoader.java
+- Every user has a role and every user can have more than one wallet
+- Every user can edit his wallet, not any others.
+- Onnly ADMIN users can see the wallets, only those who own the wallets can edit the wallet.
 
 ### Running service locally
 
