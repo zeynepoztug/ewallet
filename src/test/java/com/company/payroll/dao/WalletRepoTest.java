@@ -1,6 +1,7 @@
 package com.company.payroll.dao;
 
 import com.company.payroll.model.Wallet;
+import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.TransactionSystemException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RunWith(SpringRunner.class)
@@ -51,6 +53,18 @@ public class WalletRepoTest {
         wallet.setBalance(-4.0);
 
         assertThrows(TransactionSystemException.class, () -> walletRepository.save(wallet));
+    }
+
+    @Test
+    @WithMockUser(roles = {"MANAGER"})
+    public void settingPositiveToBalance_Save_ShouldSucceed() {
+        final Wallet wallet = new Wallet();
+        wallet.setBalance(5.0);
+
+        final Wallet saved = walletRepository.save(wallet);
+        Optional<Wallet> found = walletRepository.findById(saved.getId());
+
+        assertEquals(saved.getId(), found.get().getId());
     }
 
 }
