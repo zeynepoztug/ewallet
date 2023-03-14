@@ -5,9 +5,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.company</groupId>
-		<artifactId>react-and-spring-data-rest</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.5.RELEASE</version>
+		<relativePath />
 	</parent>
 
 	<artifactId>react-and-spring-data-rest-security</artifactId>
@@ -70,6 +71,11 @@
 			<artifactId>spring-security-test</artifactId>
 			<version>4.2.2.RELEASE</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>2.0.2</version>
 		</dependency>
 	</dependencies>
 
