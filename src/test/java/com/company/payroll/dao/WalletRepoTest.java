@@ -6,7 +6,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.TransactionSystemException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -39,6 +41,16 @@ public class WalletRepoTest {
         wallet.setId(1L);
 
         assertThrows(AuthenticationCredentialsNotFoundException.class, () -> walletRepository.deleteById(wallet.getId()));
+    }
+
+    @Test
+    @WithMockUser(roles = {"MANAGER"})
+    public void settingNonPositiveToBalance_ShouldThrowException() {
+        final Wallet wallet = new Wallet();
+        wallet.setId(1L);
+        wallet.setBalance(-4.0);
+
+        assertThrows(TransactionSystemException.class, () -> walletRepository.save(wallet));
     }
 
 }
